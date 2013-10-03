@@ -3,9 +3,10 @@ from sklearn import datasets, svm
 import pickle
 
 
-class Bayesian:
+class Bayesian():
 	#instaniate the class with the test data from sklearn
-	def __init__(self):
+	def __init__(self, data ={}):
+		self.data = data
 		self.iris = datasets.load_iris()
 		self.digits = datasets.load_digits()
 
@@ -57,6 +58,7 @@ class Bayesian:
 		
 	
 if __name__ == "__main__":
+	
 	tester2 = Bayesian()
 	#tester2.test_data()
 	#tester2.test_Svm()
