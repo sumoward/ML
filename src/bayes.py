@@ -1,6 +1,8 @@
 
 from sklearn import datasets, svm
 import pickle
+import json
+import numpy as np
 
 
 class Bayesian():
@@ -55,6 +57,32 @@ class Bayesian():
 		clf2 = pickle.loads(s)
 		proof = clf2.predict(X[0])
 		print(proof)
+	
+	def import_json(self,filename):
+		with open('data.json', 'r') as fp:
+			data = json.load(fp)
+		return data
+	#convert student data to a numpy arrays
+	def convert_np_array(self, student_data):
+		for student, scores in student_data.items():
+			#print(type(student_data[student]))
+			student_data[student] = np.array(scores)
+			#print(type(student_data[student]))
+		return 	student_data
+	
+	def play_numpy(self, student_data):
+		print ("student 1:\n", student_data['id_1'])
+		#ndarray.ndim -the number of axes (dimensions) of the array.
+		print ("ndim ", student_data['id_1'].ndim)
+		#ndarray.shape the dimensions of the array.
+		print ("shape ", student_data['id_1'].shape)
+		#ndarray.size the total number of elements of the array.
+		print ("size", student_data['id_1'].size)
+		#ndarray.dtype an object describing the type of the elements in the array
+		print ("dtype ", student_data['id_1'].dtype)
+		#ndarray.itemsize the size in bytes of each element of the array.
+		print ("itemsize ", student_data['id_1'].itemsize)
+		#ndarray.data the buffer containing the actual elements of the array.
 		
 	
 if __name__ == "__main__":
@@ -62,6 +90,11 @@ if __name__ == "__main__":
 	tester2 = Bayesian()
 	#tester2.test_data()
 	#tester2.test_Svm()
-	tester2.test_persistence()
+	#tester2.test_persistence()
+	filename = "data.json"
+	student_data = tester2 .import_json(filename)
+	#print("the data imported from json is :\n", student_data)
+	student_data = tester2.convert_np_array(student_data)
+	tester2.play_numpy(student_data)
 	
 	

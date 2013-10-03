@@ -23,16 +23,19 @@ class Data_Import:
             ident = self.identifier(row)
             start = len(ident) + 1
             snippet = row[start:-1]
+            snippet = self.parse_snippet(snippet)
             #if new student
             if check not in row:
                 self.array_holder =[]
                 check = ident
-                self.array_holder.append([snippet]) 
+                
+                self.array_holder.append(snippet) 
             else:    
-                self.array_holder.append([snippet])   
+                self.array_holder.append(snippet)   
                 #store the multidimensional array as a value in a dictionary
             self.data_dictionary[ident] = self.array_holder
         #output to json file for testing 
+        print(self.data_dictionary)
         out = open(filename, 'w')
         json.dump(self.data_dictionary, out)
         print("data imported to Dictionary")         
@@ -41,6 +44,14 @@ class Data_Import:
     def identifier(self, row):
         loc = row.find(',')
         return row[:loc]
+    
+    def parse_snippet(self, snippet):
+        snippet = snippet.split(',')
+        print (snippet)
+        #convert string into arrayand add to 2 d array
+        snippet = list(map(int,snippet))
+        print(snippet)
+        return snippet
                
 if __name__ == "__main__":
     tester1 = Data_Import()
